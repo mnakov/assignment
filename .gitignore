@@ -25,7 +25,6 @@
 /web/web.config
 /.editorconfig
 /.gitattributes
-/README.md
 # Ignore other common stuff
 /.idea
 /.vagrant
