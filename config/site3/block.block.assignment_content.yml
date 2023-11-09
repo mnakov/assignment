@@ -1,0 +1,22 @@
+uuid: 702ac9d7-4ca4-47bc-a040-5d76ec9b4026
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - assignment
+_core:
+  default_config_hash: erQSEZF2XUjNmgTl0uNRBzmg18ZGXwUcw2FhApoeuHk
+id: assignment_content
+theme: assignment
+region: content
+weight: -5
+provider: null
+plugin: system_main_block
+settings:
+  id: system_main_block
+  label: 'Main page content'
+  label_display: '0'
+  provider: system
+visibility: {  }

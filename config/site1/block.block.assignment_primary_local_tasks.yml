@@ -1,0 +1,22 @@
+uuid: a73ec716-b507-4ba6-897c-051ca1ab654e
+langcode: en
+status: true
+dependencies:
+  theme:
+    - assignment
+_core:
+  default_config_hash: nGE3EoPQQaQCuqTUtZgw0-KIzmrqdKDzdNQf2JyPUt4
+id: assignment_primary_local_tasks
+theme: assignment
+region: highlighted
+weight: -4
+provider: null
+plugin: local_tasks_block
+settings:
+  id: local_tasks_block
+  label: 'Primary tabs'
+  label_display: '0'
+  provider: core
+  primary: true
+  secondary: false
+visibility: {  }

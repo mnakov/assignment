@@ -1,0 +1,4 @@
+services:
+  push_data_layer.builder:
+    class: Drupal\push_data_layer\PushDatalayerBuilder
+    arguments: ['@router.admin_context']

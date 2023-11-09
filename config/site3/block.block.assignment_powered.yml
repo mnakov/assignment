@@ -1,0 +1,22 @@
+uuid: 368f8d5c-5582-41b1-b60e-9d58741f454d
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - assignment
+_core:
+  default_config_hash: eYL19CLDyinGTWYQfBD1DswWzglEotE_kHnHx3AxTXM
+id: assignment_powered
+theme: assignment
+region: navigation
+weight: -2
+provider: null
+plugin: system_powered_by_block
+settings:
+  id: system_powered_by_block
+  label: 'Powered by Drupal'
+  label_display: '0'
+  provider: system
+visibility: {  }

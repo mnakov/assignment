@@ -1,0 +1,23 @@
+uuid: df0c808b-e4d0-4377-9ad4-d882e7aa8fcd
+langcode: en
+status: true
+dependencies:
+  module:
+    - search
+  theme:
+    - assignment
+_core:
+  default_config_hash: imMyHD6LYci0gtXq56qr9ZKGHzbEG9uFydrN5EhKtSU
+id: assignment_search_form_wide
+theme: assignment
+region: navigation
+weight: -5
+provider: null
+plugin: search_form_block
+settings:
+  id: search_form_block
+  label: 'Search form (wide)'
+  label_display: '0'
+  provider: search
+  page_id: ''
+visibility: {  }

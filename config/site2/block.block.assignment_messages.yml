@@ -1,0 +1,22 @@
+uuid: 4b3174ad-ebbb-4add-8b6c-b709c4cf97ee
+langcode: en
+status: true
+dependencies:
+  module:
+    - system
+  theme:
+    - assignment
+_core:
+  default_config_hash: BZ5tpW7H8X4PVGRm3MImTIHd2tN0eF7zOtp4SpRYUA0
+id: assignment_messages
+theme: assignment
+region: highlighted
+weight: -5
+provider: null
+plugin: system_messages_block
+settings:
+  id: system_messages_block
+  label: 'Status messages'
+  label_display: '0'
+  provider: system
+visibility: {  }

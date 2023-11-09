@@ -1,0 +1,45 @@
+name: assignment
+recipe: drupal10
+config:
+  webroot: ./web
+  drush: true
+proxy:
+  appserver:
+    - site1.assignment.loc
+    - site2.assignment.loc
+    - site3.assignment.loc
+  static1:
+    - static.site1.assignment.loc
+  static2:
+    - static.site2.assignment.loc
+  static3:
+    - static.site3.assignment.loc
+services:
+  site1:
+    type: mysql
+    creds:
+      user: site1
+      password: site1
+      database: site1
+  site2:
+    type: mysql
+    creds:
+      user: site2
+      password: site2
+      database: site2
+  site3:
+    type: mysql
+    creds:
+      user: site3
+      password: site3
+      database: site3
+  static1:
+    type: php
+    webroot: ./web/static/site1
+  static2:
+    type: php
+    webroot: ./web/static/site2
+  static3:
+    type: php
+    webroot: ./web/static/site3
+

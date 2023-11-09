@@ -1,0 +1,23 @@
+uuid: 473b6bb9-d0ac-4a3b-b760-e07151a72f46
+langcode: en
+status: true
+dependencies:
+  module:
+    - node
+  theme:
+    - assignment
+_core:
+  default_config_hash: 0gq3VPg-_UM69FCCWurLFIrrnIjC2HLKhwo9iQNtcUo
+id: assignment_syndicate
+theme: assignment
+region: navigation
+weight: -1
+provider: null
+plugin: node_syndicate_block
+settings:
+  id: node_syndicate_block
+  label: 'RSS feed'
+  label_display: '0'
+  provider: node
+  block_count: 10
+visibility: {  }

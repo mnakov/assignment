@@ -1,0 +1,5 @@
+name: 'Push data layer'
+type: module
+description: 'Pushes a data layer object to the front end'
+core_version_requirement: ^9 || ^10
+package: Custom

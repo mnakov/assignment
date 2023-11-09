@@ -1,0 +1,52 @@
+uuid: 0f4747ee-2ad7-4a6c-b671-9cd1987238d7
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.field.paragraph.split_view.field_image
+    - field.field.paragraph.split_view.field_link
+    - field.field.paragraph.split_view.field_teaser
+    - field.field.paragraph.split_view.field_title
+    - paragraphs.paragraphs_type.split_view
+  module:
+    - link
+    - media_library
+id: paragraph.split_view.default
+targetEntityType: paragraph
+bundle: split_view
+mode: default
+content:
+  field_image:
+    type: media_library_widget
+    weight: 3
+    region: content
+    settings:
+      media_types: {  }
+    third_party_settings: {  }
+  field_link:
+    type: link_default
+    weight: 2
+    region: content
+    settings:
+      placeholder_url: ''
+      placeholder_title: ''
+    third_party_settings: {  }
+  field_teaser:
+    type: string_textarea
+    weight: 1
+    region: content
+    settings:
+      rows: 5
+      placeholder: ''
+    third_party_settings: {  }
+  field_title:
+    type: string_textfield
+    weight: 0
+    region: content
+    settings:
+      size: 60
+      placeholder: ''
+    third_party_settings: {  }
+hidden:
+  created: true
+  status: true

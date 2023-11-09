@@ -1,0 +1,41 @@
+uuid: 3688e403-6ced-463d-9dac-ef72b4c7d0ac
+langcode: en
+status: true
+dependencies:
+  config:
+    - field.storage.node.field_components
+    - node.type.landing_page
+    - paragraphs.paragraphs_type.body_copy
+    - paragraphs.paragraphs_type.call_to_action
+    - paragraphs.paragraphs_type.image
+  module:
+    - entity_reference_revisions
+id: node.landing_page.field_components
+field_name: field_components
+entity_type: node
+bundle: landing_page
+label: Components
+description: ''
+required: false
+translatable: false
+default_value: {  }
+default_value_callback: ''
+settings:
+  handler: 'default:paragraph'
+  handler_settings:
+    target_bundles:
+      body_copy: body_copy
+      call_to_action: call_to_action
+      image: image
+    negate: 0
+    target_bundles_drag_drop:
+      body_copy:
+        weight: 4
+        enabled: true
+      call_to_action:
+        weight: 5
+        enabled: true
+      image:
+        weight: 6
+        enabled: true
+field_type: entity_reference_revisions

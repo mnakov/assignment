@@ -1,0 +1,21 @@
+<?php
+
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Alter the data layer terms with Tags taxonomy.
+ */
+function data_layer_alter_push_data_layer_terms_alter(&$terms, $entity) {
+
+  foreach ($entity->field_tags->getValue() as $value) {
+    if (isset($value['target_id'])) {
+      $term = Term::load($value['target_id']);
+      if ($term) {
+        $terms[$term->vid->getString()][(string)$term->tid->getString()] = $term->label();
+      }
+    }
+  }
+
+  return $terms;
+}
+

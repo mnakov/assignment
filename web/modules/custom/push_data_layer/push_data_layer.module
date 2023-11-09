@@ -1,0 +1,135 @@
+<?php
+
+use Drupal\Core\Entity\ContentEntityInterface;
+use Drupal\paragraphs\Entity\Paragraph;
+use Drupal\taxonomy\Entity\Term;
+
+/**
+ * Implements hook_page_bottom().
+ *
+ * @param array $page_bottom
+ * @return void
+ */
+function push_data_layer_page_bottom(array &$page_bottom) {
+  $page_bottom['pushdatalayer'] = [
+    '#lazy_builder' => ['push_data_layer.builder:pushDataLayerScriptTag', []],
+    '#create_placeholder' => TRUE,
+    '#cache' => [
+      'contexts' => ['user'],
+    ],
+  ];
+}
+
+/**
+ * @param $reset
+ * @return array|mixed|null
+ */
+function push_data_layer_get_data_from_page($reset = FALSE) {
+  $push_data_layer = &drupal_static(__FUNCTION__);
+  $push_data_layer = push_data_layer_add(push_data_layer_get_page_data());
+  return $push_data_layer;
+}
+
+/**
+ * @return array|mixed
+ */
+function push_data_layer_get_page_data() {
+  $entity = _push_data_layer_menu_get_object();
+  if (is_object($entity)) {
+    // Populate entity properties and values.
+    return _push_data_layer_get_entity_data($entity);
+  }
+
+  return [];
+}
+
+/**
+ * @return ContentEntityInterface|null
+ */
+function _push_data_layer_menu_get_object() {
+  // Figure out if a content entity is being viewed.
+  $route_match = \Drupal::routeMatch();
+  foreach ($route_match->getParameters() as $parameter) {
+    if ($parameter instanceof ContentEntityInterface) {
+      return $parameter;
+    }
+  }
+
+  return NULL;
+}
+
+/**
+ * @param $entity
+ * @return array|mixed
+ */
+function _push_data_layer_get_entity_data($entity) {
+  $output_data = &drupal_static(__FUNCTION__);
+  if (empty($output_data)) {
+    $type = $entity->getEntityTypeId();
+    $bundle = $entity->bundle();
+    if ($type == 'node' && $bundle == 'landing_page') {
+
+      $output_data['title'] = $entity->label();
+
+      if ($entity->hasField('field_components') && !$entity->get('field_components')->isEmpty()) {
+        $paragraph_ids = $entity->get('field_components')->getValue();
+
+        $paragraphs = [];
+        // Loop through each paragraph.
+        foreach ($paragraph_ids as $paragraph_id) {
+          $paragraph = Paragraph::load($paragraph_id['target_id']);
+          $paragraphs[] = $paragraph->bundle();
+        }
+        $output_data['components'] = $paragraphs;
+      }
+
+      // Output terms.
+      if ($taxonomy = _push_data_layer_get_entity_terms($entity)) {
+          $output_data['taxonomy'] = $taxonomy;
+      }
+    }
+  }
+
+  return $output_data;
+}
+
+/**
+ * @param array $data
+ * @param $overwrite
+ * @return array|mixed|null
+ */
+function push_data_layer_add(array $data = [], $overwrite = FALSE) {
+  $site_name = \Drupal::config('system.site');
+  $output_data = &drupal_static(__FUNCTION__, ['site_name' => $site_name->get('name')]);
+
+  if (!empty($data)) {
+    if ($overwrite) {
+      $output_data = array_merge($output_data, $data);
+    }
+    else {
+      $output_data += $data;
+    }
+  }
+
+  return $output_data;
+}
+
+/**
+ * @param $entity
+ * @return mixed
+ */
+function _push_data_layer_get_entity_terms($entity) {
+
+  // Collect terms from fields for return.
+  foreach ($entity->field_category->getValue() as $value) {
+    if (isset($value['target_id'])) {
+      $term = Term::load($value['target_id']);
+      if ($term) {
+        $terms[$term->vid->getString()][(string)$term->tid->getString()] = $term->label();
+      }
+    }
+  }
+  // Allow modules to alter data with hook_push_data_layer_terms().
+  \Drupal::moduleHandler()->alter('push_data_layer_terms', $terms, $entity);
+  return $terms;
+}
